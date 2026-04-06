@@ -9,6 +9,9 @@ target/
 *.iws
 *.iml
 *.ipr
+encodings.xml
+misc.xml
+modules.xml
 
 ### Eclipse ###
 .apt_generated
