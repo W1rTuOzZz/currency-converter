@@ -16,25 +16,32 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
+        String answer;
+        while (true) {
+            System.out.println("=== Конвертер валют ===");
+            System.out.print("Введите исходную валюту (например, USD): ");
+            String fromCurrency = scanner.nextLine().toUpperCase();
 
-        System.out.println("=== Конвертер валют ===");
-        System.out.print("Введите исходную валюту (например, USD): ");
-        String fromCurrency = scanner.nextLine().toUpperCase();
+            System.out.print("Введите целевую валюту (например, KGS): ");
+            String toCurrency = scanner.nextLine().toUpperCase();
 
-        System.out.print("Введите целевую валюту (например, KGS): ");
-        String toCurrency = scanner.nextLine().toUpperCase();
+            System.out.print("Введите сумму: ");
+            double amount = Double.parseDouble(scanner.nextLine());
 
-        System.out.print("Введите сумму: ");
-        double amount = Double.parseDouble(scanner.nextLine());
+            double rate = getExchangeRate(fromCurrency, toCurrency);
 
-        double rate = getExchangeRate(fromCurrency, toCurrency);
-
-        if (rate > 0) {
-            double result = amount * rate;
-            System.out.printf("\n%.2f %s = %.2f %s%n", amount, fromCurrency, result, toCurrency);
-            System.out.printf("Курс: 1 %s = %.4f %s%n", fromCurrency, rate, toCurrency);
-        } else {
-            System.out.println("Не удалось получить курс. Проверьте код валюты.");
+            if (rate > 0) {
+                double result = amount * rate;
+                System.out.printf("\n%.2f %s = %.2f %s%n", amount, fromCurrency, result, toCurrency);
+                System.out.printf("Курс: 1 %s = %.4f %s%n", fromCurrency, rate, toCurrency);
+            } else {
+                System.out.println("Не удалось получить курс. Проверьте код валюты.");
+            }
+            System.out.println("Хотите продолжить? (да/нет)");
+            answer = scanner.nextLine();
+            if (answer.equals("нет")) {
+                break;
+            }
         }
     }
 
