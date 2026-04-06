@@ -1,17 +1,62 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Scanner;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+
+    // Сюда вставишь свой ключ с exchangerate-api.com
+    private static final String API_KEY = "de53f558b2a5f0de21c2191f";
+    private static final String BASE_URL = "https://v6.exchangerate-api.com/v6/";
+
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== Конвертер валют ===");
+        System.out.print("Введите исходную валюту (например, USD): ");
+        String fromCurrency = scanner.nextLine().toUpperCase();
+
+        System.out.print("Введите целевую валюту (например, KGS): ");
+        String toCurrency = scanner.nextLine().toUpperCase();
+
+        System.out.print("Введите сумму: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+
+        double rate = getExchangeRate(fromCurrency, toCurrency);
+
+        if (rate > 0) {
+            double result = amount * rate;
+            System.out.printf("\n%.2f %s = %.2f %s%n", amount, fromCurrency, result, toCurrency);
+            System.out.printf("Курс: 1 %s = %.4f %s%n", fromCurrency, rate, toCurrency);
+        } else {
+            System.out.println("Не удалось получить курс. Проверьте код валюты.");
+        }
+    }
+
+    private static double getExchangeRate(String from, String to) throws Exception {
+        String url = BASE_URL + API_KEY + "/pair/" + from + "/" + to;
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        String body = response.body();
+
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
+        String result = json.get("result").getAsString();
+
+        if (result.equals("success")) {
+            return json.get("conversion_rate").getAsDouble();
+        } else {
+            return -1;
         }
     }
 }
