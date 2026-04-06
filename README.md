@@ -23,7 +23,7 @@ A console application for converting currencies with real-time exchange rates.
 ```
 === Currency Converter ===
 Enter source currency (for example, USD): GBP
-Enter target currency (for example, KGS): EUR
+Enter target currency (for example, EUR): EUR
 Enter amount: 14
 14,00 GBP = 16,04 EUR
 Exchange rate: 1 GBP = 1,1456 EUR
