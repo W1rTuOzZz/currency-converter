@@ -11,21 +11,21 @@ import java.util.Scanner;
 public class Main {
 
     // Сюда вставишь свой ключ с exchangerate-api.com
-    private static final String API_KEY = "de53f558b2a5f0de21c2191f";
+    private static final String API_KEY = "API_KEY";
     private static final String BASE_URL = "https://v6.exchangerate-api.com/v6/";
 
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         String answer;
         while (true) {
-            System.out.println("=== Конвертер валют ===");
-            System.out.print("Введите исходную валюту (например, USD): ");
+            System.out.println("=== Currency Converter ===");
+            System.out.print("Enter source currency (for example, GBP): ");
             String fromCurrency = scanner.nextLine().toUpperCase();
 
-            System.out.print("Введите целевую валюту (например, KGS): ");
+            System.out.print("Enter target currency (for example, EUR): ");
             String toCurrency = scanner.nextLine().toUpperCase();
 
-            System.out.print("Введите сумму: ");
+            System.out.print("Enter amount: ");
             double amount = Double.parseDouble(scanner.nextLine());
 
             double rate = getExchangeRate(fromCurrency, toCurrency);
@@ -33,13 +33,13 @@ public class Main {
             if (rate > 0) {
                 double result = amount * rate;
                 System.out.printf("\n%.2f %s = %.2f %s%n", amount, fromCurrency, result, toCurrency);
-                System.out.printf("Курс: 1 %s = %.4f %s%n", fromCurrency, rate, toCurrency);
+                System.out.printf("Exchange rate: 1 %s = %.4f %s%n", fromCurrency, rate, toCurrency);
             } else {
-                System.out.println("Не удалось получить курс. Проверьте код валюты.");
+                System.out.println("Failed to get exchange rate. Check the currency code.");
             }
-            System.out.println("Хотите продолжить? (да/нет)");
+            System.out.println("Do you want to continue? (yes/no)");
             answer = scanner.nextLine();
-            if (answer.equals("нет")) {
+            if (answer.equals("no")) {
                 break;
             }
         }
