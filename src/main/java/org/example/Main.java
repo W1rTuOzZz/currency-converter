@@ -21,9 +21,9 @@ public class Main {
         Properties prop = new Properties();
         try (FileInputStream input = new FileInputStream("config.properties")) {
             prop.load(input);
-            API_KEY = prop.getProperty("api.key"); // Должно совпадать с именем в файле!
+            API_KEY = prop.getProperty("api.key"); // Must match the name in the file!
         } catch (IOException ex) {
-            System.err.println("Ошибка: Не удалось найти файл config.properties или прочитать api.key");
+            System.err.println("Error: Could not find the config.properties file or read api.key");
             ex.printStackTrace();
         }
     }
@@ -32,7 +32,7 @@ public class Main {
         loadApiKey();
 
         if (API_KEY == null || API_KEY.isEmpty()) {
-            System.out.println("Критическая ошибка: API_KEY не найден в файле!");
+            System.out.println("Critical error: API_KEY not found in the file!");
             return;
         }
 
