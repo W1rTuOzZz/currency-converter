@@ -23,7 +23,7 @@ A console application for converting currencies with real-time exchange rates.
 ## Example Usage
 ```
 === Currency Converter ===
-Enter source currency (for example, USD): GBP
+Enter source currency (for example, GBP): GBP
 Enter target currency (for example, EUR): EUR
 Enter amount: 14
 14,00 GBP = 16,04 EUR
