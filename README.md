@@ -16,8 +16,9 @@ A console application for converting currencies with real-time exchange rates.
 ## How to Run
 1. Clone the repository
 2. Register at exchangerate-api.com and get a free API key
-3. Insert the key into `Main.java` in the `API_KEY` line
-4. Run via IntelliJ IDEA
+3. Create a `config.properties` file in the project root
+4. Add your key: `api.key=YOUR_API_KEY`
+5. Run via IntelliJ IDEA
 
 ## Example Usage
 ```
